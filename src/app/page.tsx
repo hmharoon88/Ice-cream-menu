@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import { Metadata } from 'next';
 
 interface IceCreamFlavor {
   name: string;
@@ -10,83 +8,69 @@ interface IceCreamFlavor {
   image?: string;
 }
 
+export const metadata: Metadata = {
+  title: "Sweet Scoops - Artisan Ice Cream Menu",
+  description: "Handcrafted ice cream made with love and the finest ingredients. View our delicious flavors and daily specials.",
+};
+
 export default function Home() {
-  const [iceCreamFlavors, setIceCreamFlavors] = useState<IceCreamFlavor[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Static data that matches your Google Sheet
-    const staticData: IceCreamFlavor[] = [
-      { 
-        name: "Pup cup", 
-        description: "Single scoop", 
-        price: "$4.99", 
-        category: "Classic" 
-      },
-      { 
-        name: "Waffle Cone", 
-        description: "Double scoop", 
-        price: "$6.99", 
-        category: "Classic" 
-      },
-      { 
-        name: "Rootbeer Float", 
-        description: "Refreshing float", 
-        price: "$7.99", 
-        category: "Specialty" 
-      },
-      { 
-        name: "Vanilla Bean", 
-        description: "Classic vanilla with real vanilla bean specks", 
-        price: "$4.50", 
-        category: "Classic" 
-      },
-      { 
-        name: "Chocolate Fudge", 
-        description: "Rich chocolate with fudge swirls", 
-        price: "$5.00", 
-        category: "Classic" 
-      },
-      { 
-        name: "Strawberry", 
-        description: "Fresh strawberry with real fruit pieces", 
-        price: "$4.75", 
-        category: "Fruit" 
-      },
-      { 
-        name: "Mint Chocolate Chip", 
-        description: "Cool mint with chocolate chips", 
-        price: "$5.25", 
-        category: "Classic" 
-      },
-      { 
-        name: "Cookie Dough", 
-        description: "Vanilla with cookie dough chunks", 
-        price: "$5.50", 
-        category: "Specialty" 
-      },
-      { 
-        name: "Rocky Road", 
-        description: "Chocolate with marshmallows and nuts", 
-        price: "$5.75", 
-        category: "Specialty" 
-      }
-    ];
-
-    setIceCreamFlavors(staticData);
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🍦</div>
-          <h2 className="text-2xl font-bold text-gray-900">Loading your ice cream menu...</h2>
-        </div>
-      </div>
-    );
-  }
+  // Static data that matches your Google Sheet
+  const iceCreamFlavors: IceCreamFlavor[] = [
+    { 
+      name: "Pup cup", 
+      description: "Single scoop", 
+      price: "$4.99", 
+      category: "Classic" 
+    },
+    { 
+      name: "Waffle Cone", 
+      description: "Double scoop", 
+      price: "$6.99", 
+      category: "Classic" 
+    },
+    { 
+      name: "Rootbeer Float", 
+      description: "Refreshing float", 
+      price: "$7.99", 
+      category: "Specialty" 
+    },
+    { 
+      name: "Vanilla Bean", 
+      description: "Classic vanilla with real vanilla bean specks", 
+      price: "$4.50", 
+      category: "Classic" 
+    },
+    { 
+      name: "Chocolate Fudge", 
+      description: "Rich chocolate with fudge swirls", 
+      price: "$5.00", 
+      category: "Classic" 
+    },
+    { 
+      name: "Strawberry", 
+      description: "Fresh strawberry with real fruit pieces", 
+      price: "$4.75", 
+      category: "Fruit" 
+    },
+    { 
+      name: "Mint Chocolate Chip", 
+      description: "Cool mint with chocolate chips", 
+      price: "$5.25", 
+      category: "Classic" 
+    },
+    { 
+      name: "Cookie Dough", 
+      description: "Vanilla with cookie dough chunks", 
+      price: "$5.50", 
+      category: "Specialty" 
+    },
+    { 
+      name: "Rocky Road", 
+      description: "Chocolate with marshmallows and nuts", 
+      price: "$5.75", 
+      category: "Specialty" 
+    }
+  ];
 
   const categories = [...new Set(iceCreamFlavors.map(item => item.category))];
 
