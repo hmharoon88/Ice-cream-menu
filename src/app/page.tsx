@@ -26,8 +26,8 @@ export default function Home() {
         
         // Transform the data to match our expected format
         const transformedData = result.data.map((item: Record<string, string>) => ({
-          name: item.name || item.flavor || item.title || 'Unknown',
-          description: item.description || item.desc || item.details || '',
+          name: item.choose_cup_cone || item['choose_cup/cone'] || item.name || item.flavor || item.title || 'Unknown',
+          description: item.choose_scoops || item.description || item.desc || item.details || '',
           price: item.price || item.cost || '$0.00',
           category: item.category || item.type || 'Classic',
           image: item.image || '/ice-cream-placeholder.jpg'
