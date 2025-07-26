@@ -1,102 +1,164 @@
-import Image from "next/image";
+const iceCreamFlavors = [
+  {
+    name: "Vanilla Bean",
+    description: "Classic vanilla with real vanilla bean specks",
+    price: "$4.50",
+    image: "/vanilla.jpg",
+    category: "Classic"
+  },
+  {
+    name: "Chocolate Fudge",
+    description: "Rich chocolate with fudge swirls",
+    price: "$5.00",
+    image: "/chocolate.jpg",
+    category: "Classic"
+  },
+  {
+    name: "Strawberry",
+    description: "Fresh strawberry with real fruit pieces",
+    price: "$4.75",
+    image: "/strawberry.jpg",
+    category: "Fruit"
+  },
+  {
+    name: "Mint Chocolate Chip",
+    description: "Cool mint with chocolate chips",
+    price: "$5.25",
+    image: "/mint.jpg",
+    category: "Classic"
+  },
+  {
+    name: "Cookie Dough",
+    description: "Vanilla with cookie dough chunks",
+    price: "$5.50",
+    image: "/cookie-dough.jpg",
+    category: "Specialty"
+  },
+  {
+    name: "Rocky Road",
+    description: "Chocolate with marshmallows and nuts",
+    price: "$5.75",
+    image: "/rocky-road.jpg",
+    category: "Specialty"
+  }
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center">
+              <div className="text-3xl mr-3">🍦</div>
+              <h1 className="text-3xl font-bold text-gray-900">Sweet Scoops</h1>
+            </div>
+            <div className="text-sm text-gray-600">
+              <p>Open Daily • 12PM - 10PM</p>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </header>
+
+      {/* Hero Section */}
+      <section className="py-12 bg-gradient-to-r from-pink-100 to-purple-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Artisan Ice Cream
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Handcrafted with love and the finest ingredients
+          </p>
+          <div className="flex justify-center space-x-4 text-sm text-gray-500">
+            <span>🌱 All Natural</span>
+            <span>🥛 Fresh Dairy</span>
+            <span>🍯 Local Honey</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Menu Section */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Our Flavors
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {iceCreamFlavors.map((flavor, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="h-48 bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center">
+                  <div className="text-6xl">🍦</div>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-xl font-semibold text-gray-900">{flavor.name}</h4>
+                    <span className="text-lg font-bold text-purple-600">{flavor.price}</span>
+                  </div>
+                  <p className="text-gray-600 mb-3">{flavor.description}</p>
+                  <span className="inline-block bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                    {flavor.category}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Specials Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Today&apos;s Specials
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-r from-pink-100 to-red-100 rounded-lg p-8">
+              <h4 className="text-2xl font-bold text-gray-900 mb-4">🍓 Strawberry Delight</h4>
+              <p className="text-gray-600 mb-4">Fresh strawberries with whipped cream and chocolate drizzle</p>
+              <div className="flex justify-between items-center">
+                <span className="text-2xl font-bold text-red-600">$6.50</span>
+                <span className="text-sm text-red-600 font-medium">Limited Time!</span>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-lg p-8">
+              <h4 className="text-2xl font-bold text-gray-900 mb-4">🌙 Midnight Cookie</h4>
+              <p className="text-gray-600 mb-4">Dark chocolate with cookie pieces and caramel swirl</p>
+              <div className="flex justify-between items-center">
+                <span className="text-2xl font-bold text-orange-600">$7.00</span>
+                <span className="text-sm text-orange-600 font-medium">New Flavor!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h4 className="text-xl font-bold mb-4">Sweet Scoops</h4>
+              <p className="text-gray-300">Handcrafted ice cream made with love and the finest ingredients.</p>
+            </div>
+            <div>
+              <h4 className="text-xl font-bold mb-4">Hours</h4>
+              <p className="text-gray-300">Monday - Sunday</p>
+              <p className="text-gray-300">12:00 PM - 10:00 PM</p>
+            </div>
+            <div>
+              <h4 className="text-xl font-bold mb-4">Contact</h4>
+              <p className="text-gray-300">123 Ice Cream Lane</p>
+              <p className="text-gray-300">(555) 123-4567</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p className="text-gray-400">© 2024 Sweet Scoops. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
