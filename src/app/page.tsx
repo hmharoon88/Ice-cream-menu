@@ -16,6 +16,33 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Use static data for now to get the site working
+    const staticData = [
+      {
+        name: "Pup cup",
+        description: "Single scoop",
+        price: "$4.99",
+        category: "Classic"
+      },
+      {
+        name: "Waffle Cone", 
+        description: "Double scoop",
+        price: "$6.99",
+        category: "Classic"
+      },
+      {
+        name: "Rootbeer Float",
+        description: "Refreshing float", 
+        price: "$7.99",
+        category: "Specialty"
+      }
+    ];
+    
+    setIceCreamFlavors(staticData);
+    setLoading(false);
+    
+    // TODO: Uncomment this when Vercel authentication is fixed
+    /*
     const fetchData = async () => {
       try {
         const response = await fetch('/api/sheets');
@@ -58,6 +85,7 @@ export default function Home() {
     };
 
     fetchData();
+    */
   }, []);
 
   if (loading) {
