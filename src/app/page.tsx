@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description: "Handcrafted ice cream made with love and the finest ingredients. View our delicious flavors and daily specials.",
 };
 
+// Force dynamic rendering for Vercel
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   // Static data that matches your Google Sheet
   const iceCreamFlavors: IceCreamFlavor[] = [
