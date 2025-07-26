@@ -1,49 +1,76 @@
-const iceCreamFlavors = [
-  {
-    name: "Vanilla Bean",
-    description: "Classic vanilla with real vanilla bean specks",
-    price: "$4.50",
-    image: "/vanilla.jpg",
-    category: "Classic"
-  },
-  {
-    name: "Chocolate Fudge",
-    description: "Rich chocolate with fudge swirls",
-    price: "$5.00",
-    image: "/chocolate.jpg",
-    category: "Classic"
-  },
-  {
-    name: "Strawberry",
-    description: "Fresh strawberry with real fruit pieces",
-    price: "$4.75",
-    image: "/strawberry.jpg",
-    category: "Fruit"
-  },
-  {
-    name: "Mint Chocolate Chip",
-    description: "Cool mint with chocolate chips",
-    price: "$5.25",
-    image: "/mint.jpg",
-    category: "Classic"
-  },
-  {
-    name: "Cookie Dough",
-    description: "Vanilla with cookie dough chunks",
-    price: "$5.50",
-    image: "/cookie-dough.jpg",
-    category: "Specialty"
-  },
-  {
-    name: "Rocky Road",
-    description: "Chocolate with marshmallows and nuts",
-    price: "$5.75",
-    image: "/rocky-road.jpg",
-    category: "Specialty"
-  }
-];
+'use client';
+
+import { useEffect, useState } from 'react';
+
+interface IceCreamFlavor {
+  name: string;
+  description: string;
+  price: string;
+  category: string;
+  image?: string;
+}
 
 export default function Home() {
+  const [iceCreamFlavors, setIceCreamFlavors] = useState<IceCreamFlavor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/sheets');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const result = await response.json();
+        
+        // Transform the data to match our expected format
+        const transformedData = result.data.map((item: Record<string, string>) => ({
+          name: item.name || item.flavor || item.title || 'Unknown',
+          description: item.description || item.desc || item.details || '',
+          price: item.price || item.cost || '$0.00',
+          category: item.category || item.type || 'Classic',
+          image: item.image || '/ice-cream-placeholder.jpg'
+        }));
+        
+        setIceCreamFlavors(transformedData);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load menu data');
+        // Fallback to default data if API fails
+        setIceCreamFlavors([
+          {
+            name: "Vanilla Bean",
+            description: "Classic vanilla with real vanilla bean specks",
+            price: "$4.50",
+            category: "Classic"
+          },
+          {
+            name: "Chocolate Fudge",
+            description: "Rich chocolate with fudge swirls",
+            price: "$5.00",
+            category: "Classic"
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🍦</div>
+          <h2 className="text-2xl font-bold text-gray-900">Loading your ice cream menu...</h2>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
       {/* Header */}
@@ -84,6 +111,13 @@ export default function Home() {
           <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Our Flavors
           </h3>
+          
+          {error && (
+            <div className="text-center mb-8 p-4 bg-yellow-100 border border-yellow-400 rounded">
+              <p className="text-yellow-800">{error}</p>
+              <p className="text-sm text-yellow-600 mt-2">Showing sample data</p>
+            </div>
+          )}
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {iceCreamFlavors.map((flavor, index) => (
