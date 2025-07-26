@@ -13,79 +13,68 @@ interface IceCreamFlavor {
 export default function Home() {
   const [iceCreamFlavors, setIceCreamFlavors] = useState<IceCreamFlavor[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Use static data for now to get the site working
-    const staticData = [
-      {
-        name: "Pup cup",
-        description: "Single scoop",
-        price: "$4.99",
-        category: "Classic"
+    // Static data that matches your Google Sheet
+    const staticData: IceCreamFlavor[] = [
+      { 
+        name: "Pup cup", 
+        description: "Single scoop", 
+        price: "$4.99", 
+        category: "Classic" 
       },
-      {
+      { 
         name: "Waffle Cone", 
-        description: "Double scoop",
-        price: "$6.99",
-        category: "Classic"
+        description: "Double scoop", 
+        price: "$6.99", 
+        category: "Classic" 
       },
-      {
-        name: "Rootbeer Float",
+      { 
+        name: "Rootbeer Float", 
         description: "Refreshing float", 
-        price: "$7.99",
-        category: "Specialty"
+        price: "$7.99", 
+        category: "Specialty" 
+      },
+      { 
+        name: "Vanilla Bean", 
+        description: "Classic vanilla with real vanilla bean specks", 
+        price: "$4.50", 
+        category: "Classic" 
+      },
+      { 
+        name: "Chocolate Fudge", 
+        description: "Rich chocolate with fudge swirls", 
+        price: "$5.00", 
+        category: "Classic" 
+      },
+      { 
+        name: "Strawberry", 
+        description: "Fresh strawberry with real fruit pieces", 
+        price: "$4.75", 
+        category: "Fruit" 
+      },
+      { 
+        name: "Mint Chocolate Chip", 
+        description: "Cool mint with chocolate chips", 
+        price: "$5.25", 
+        category: "Classic" 
+      },
+      { 
+        name: "Cookie Dough", 
+        description: "Vanilla with cookie dough chunks", 
+        price: "$5.50", 
+        category: "Specialty" 
+      },
+      { 
+        name: "Rocky Road", 
+        description: "Chocolate with marshmallows and nuts", 
+        price: "$5.75", 
+        category: "Specialty" 
       }
     ];
-    
+
     setIceCreamFlavors(staticData);
     setLoading(false);
-    
-    // TODO: Uncomment this when Vercel authentication is fixed
-    /*
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/sheets');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const result = await response.json();
-        
-        // Transform the data to match our expected format
-        const transformedData = result.data.map((item: Record<string, string>) => ({
-          name: item.choose_cup_cone || item['choose_cup/cone'] || item.name || item.flavor || item.title || 'Unknown',
-          description: item.choose_scoops || item.description || item.desc || item.details || '',
-          price: item.price || item.cost || '$0.00',
-          category: item.category || item.type || 'Classic',
-          image: item.image || '/ice-cream-placeholder.jpg'
-        }));
-        
-        setIceCreamFlavors(transformedData);
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        setError('Failed to load menu data');
-        // Fallback to default data if API fails
-        setIceCreamFlavors([
-          {
-            name: "Vanilla Bean",
-            description: "Classic vanilla with real vanilla bean specks",
-            price: "$4.50",
-            category: "Classic"
-          },
-          {
-            name: "Chocolate Fudge",
-            description: "Rich chocolate with fudge swirls",
-            price: "$5.00",
-            category: "Classic"
-          }
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-    */
   }, []);
 
   if (loading) {
@@ -99,129 +88,114 @@ export default function Home() {
     );
   }
 
+  const categories = [...new Set(iceCreamFlavors.map(item => item.category))];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <div className="text-3xl mr-3">🍦</div>
-              <h1 className="text-3xl font-bold text-gray-900">Sweet Scoops</h1>
+      <header className="bg-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="text-4xl">🍦</div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Sweet Scoops</h1>
+                <p className="text-gray-600">Artisan Ice Cream</p>
+              </div>
             </div>
-            <div className="text-sm text-gray-600">
-              <p>Open Daily • 12PM - 10PM</p>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">Today&apos;s Specials</p>
+              <p className="text-lg font-semibold text-pink-600">Fresh Daily</p>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-12 bg-gradient-to-r from-pink-100 to-purple-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Welcome Section */}
+        <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Artisan Ice Cream
+            Welcome to Sweet Scoops! 🍨
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Handcrafted with love and the finest ingredients
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Handcrafted ice cream made with love and the finest ingredients. 
+            Each scoop is a little piece of happiness!
           </p>
-          <div className="flex justify-center space-x-4 text-sm text-gray-500">
-            <span>🌱 All Natural</span>
-            <span>🥛 Fresh Dairy</span>
-            <span>🍯 Local Honey</span>
-          </div>
         </div>
-      </section>
 
-      {/* Menu Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Our Flavors
-          </h3>
-          
-          {error && (
-            <div className="text-center mb-8 p-4 bg-yellow-100 border border-yellow-400 rounded">
-              <p className="text-yellow-800">{error}</p>
-              <p className="text-sm text-yellow-600 mt-2">Showing sample data</p>
-            </div>
-          )}
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {iceCreamFlavors.map((flavor, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="h-48 bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center">
-                  <div className="text-6xl">🍦</div>
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="text-xl font-semibold text-gray-900">{flavor.name}</h4>
-                    <span className="text-lg font-bold text-purple-600">{flavor.price}</span>
-                  </div>
-                  <p className="text-gray-600 mb-3">{flavor.description}</p>
-                  <span className="inline-block bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                    {flavor.category}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Specials Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Today&apos;s Specials
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-r from-pink-100 to-red-100 rounded-lg p-8">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4">🍓 Strawberry Delight</h4>
-              <p className="text-gray-600 mb-4">Fresh strawberries with whipped cream and chocolate drizzle</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-red-600">$6.50</span>
-                <span className="text-sm text-red-600 font-medium">Limited Time!</span>
-              </div>
-            </div>
+        {/* Menu by Categories */}
+        {categories.map((category) => (
+          <div key={category} className="mb-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <span className="mr-3">
+                {category === 'Classic' ? '🥛' : 
+                 category === 'Fruit' ? '🍓' : 
+                 category === 'Specialty' ? '⭐' : '🍦'}
+              </span>
+              {category} Flavors
+            </h3>
             
-            <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-lg p-8">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4">🌙 Midnight Cookie</h4>
-              <p className="text-gray-600 mb-4">Dark chocolate with cookie pieces and caramel swirl</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-orange-600">$7.00</span>
-                <span className="text-sm text-orange-600 font-medium">New Flavor!</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {iceCreamFlavors
+                .filter(item => item.category === category)
+                .map((flavor, index) => (
+                  <div 
+                    key={index}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+                  >
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <h4 className="text-xl font-semibold text-gray-900">
+                          {flavor.name}
+                        </h4>
+                        <span className="text-2xl font-bold text-pink-600">
+                          {flavor.price}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {flavor.description}
+                      </p>
+                      <div className="mt-4 flex items-center justify-between">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pink-100 text-pink-800">
+                          {flavor.category}
+                        </span>
+                        <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:from-pink-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105">
+                          Order Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        ))}
+
+        {/* Footer */}
+        <div className="mt-16 text-center">
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Visit Us Today! 🏪</h3>
+            <p className="text-gray-600 mb-6">
+              Come experience the magic of our handcrafted ice cream. 
+              Perfect for any occasion!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-2xl">📍</span>
+                <span className="text-gray-700">123 Ice Cream Lane</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-2xl">🕒</span>
+                <span className="text-gray-700">Open Daily 12PM-10PM</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-2xl">📞</span>
+                <span className="text-gray-700">(555) ICE-CREAM</span>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h4 className="text-xl font-bold mb-4">Sweet Scoops</h4>
-              <p className="text-gray-300">Handcrafted ice cream made with love and the finest ingredients.</p>
-            </div>
-            <div>
-              <h4 className="text-xl font-bold mb-4">Hours</h4>
-              <p className="text-gray-300">Monday - Sunday</p>
-              <p className="text-gray-300">12:00 PM - 10:00 PM</p>
-            </div>
-            <div>
-              <h4 className="text-xl font-bold mb-4">Contact</h4>
-              <p className="text-gray-300">123 Ice Cream Lane</p>
-              <p className="text-gray-300">(555) 123-4567</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">© 2024 Sweet Scoops. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      </main>
     </div>
   );
 }
